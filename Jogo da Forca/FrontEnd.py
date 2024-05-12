@@ -1,4 +1,4 @@
-[11:51, 11/05/2024] Joaquim: import os
+import os
 os.system('cls')
 
 import random
