@@ -21,63 +21,70 @@ categorias = {
 }
 
 def jogar_forca():
-    categoria = random.choice(list(categorias.keys()))
-    palavra = random.choice(categorias[categoria])
-    palavra_escondida = '_' * len(palavra)
+    while True:
+        categoria = random.choice(list(categorias.keys()))
+        palavra = random.choice(categorias[categoria])
+        palavra_escondida = '_' * len(palavra)
 
-    print(f'Dica: {categoria.capitalize()}')
-    print(palavra_escondida)
+        print(f'Dica: {categoria.capitalize()}')
+        print(palavra_escondida)
 
-    letras_usadas = []
-    tentativas = 10
+        letras_usadas = []
+        tentativas = 10
 
-    print('---------------------------------')
-    print('\n')
-    print('Digite uma letra ou "sair" para sair. OBS: acentos foram retirados das palavras.')
-    print('---------------------------------')
-    print('\n')
-
-    while tentativas > 0:
-        letra = input('Digite uma letra:').lower()
+        print('---------------------------------')
+        print('\n')
+        print('Digite uma letra ou "sair" para sair. OBS: acentos foram retirados das palavras.')
         print('---------------------------------')
         print('\n')
 
-        if letra == 'sair':
+        while tentativas > 0:
+            letra = input('Digite uma letra:').lower()
+            print('---------------------------------')
+            print('\n')
+
+            if letra == 'sair':
+                print('Obrigado por jogar!\n')
+                print('---------------------------------')
+                return
+
+            if len(letra) != 1 or not letra.isalpha():
+                print("Por favor, digite apenas uma letra. OBS:\n")
+                print('---------------------------------')
+                continue
+
+            if letra in letras_usadas:
+                print("Você já tentou essa letra. Tente outra.\n")
+                print('---------------------------------')
+                continue
+
+            letras_usadas.append(letra)
+
+            if letra in palavra:
+                palavra_escondida = revela_letra(palavra, palavra_escondida, letra)
+                print("A palavra agora é:", palavra_escondida,'\n')
+                print('---------------------------------')
+                if '_' not in palavra_escondida:
+                    print("Parabéns! Você acertou a palavra:", palavra,'\n')
+                    print('---------------------------------')
+                    break
+            else:
+                print("Essa letra não está na palavra.\n")
+                print('---------------------------------')
+                tentativas -= 1
+                print(f"Agora você tem {tentativas} tentativas restantes.\n")
+                print('---------------------------------')
+
+            print(f'Letras usadas: {", ".join(letras_usadas)}\n')
+
+        if tentativas == 0:
+            print("Você esgotou todas as tentativas. A palavra era:", palavra,'\n')
+            print('---------------------------------')
+
+        continuar = input('Deseja jogar novamente? (s/n): ').lower()
+        if continuar != 's':
             print('Obrigado por jogar!\n')
             print('---------------------------------')
             break
-
-        if len(letra) != 1 or not letra.isalpha():
-            print("Por favor, digite apenas uma letra. OBS:\n")
-            print('---------------------------------')
-            continue
-
-        if letra in letras_usadas:
-            print("Você já tentou essa letra. Tente outra.\n")
-            print('---------------------------------')
-            continue
-
-        letras_usadas.append(letra)
-
-        if letra in palavra:
-            palavra_escondida = revela_letra(palavra, palavra_escondida, letra)
-            print("A palavra agora é:", palavra_escondida,'\n')
-            print('---------------------------------')
-            if '_' not in palavra_escondida:
-                print("Parabéns! Você acertou a palavra:", palavra,'\n')
-                print('---------------------------------')
-                break
-        else:
-            print("Essa letra não está na palavra.\n")
-            print('---------------------------------')
-            tentativas -= 1
-            print(f"Agora você tem {tentativas} tentativas restantes.\n")
-            print('---------------------------------')
-
-        print(f'Letras usadas: {", ".join(letras_usadas)}\n')
-
-    if tentativas == 0:
-        print("Você esgotou todas as tentativas. A palavra era:", palavra,'\n')
-        print('---------------------------------')
 
 jogar_forca()
