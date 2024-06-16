@@ -13,6 +13,8 @@ categorias = {
 'paises': ['brasil', 'argentina', 'chile', 'colombia', 'uruguai','jamaica','venezuela','paraguai','china','india','egito','ira','china','japao','alemanha','uruguai','canada','coreia do sul','coreia do norte','australia','espanha','portugal'],
 'jogos': ['minecraft', 'fortnite', 'roblox', 'among us', 'fifa','tetris','zelda','mario','pokemon','sonic','pacman','gta','call of duty'],
 'objetos': ['apontador', 'caneta', 'livro', 'cadeira', 'mesa','escada','mesa','espelho','controle','caneta','celular','caderno','lapis','borracha','caderno','livro','mochila','umidificador','microondas','geladeira','fogão','microondas','forno','geladeira']}
+categoria = rnd.choice(list(categorias.keys()))
+palavra = rnd.choice(categorias[categoria])
 #-----------------------------------
 #Funções
 def skip_jogo():
@@ -23,6 +25,24 @@ def chut_tj():
     print("jogo da forca")
 def verifi_let():
     print("jogo da forca")
+def dica (x):
+    font_dica = ctk.CTkFont(family="Arial Black", size=38, 
+	weight="bold",underline=False, overstrike=False)
+    dicas = ctk.CTkLabel(janela_jogo, text="Dica: "+ x , fg_color="transparent",
+                         font=font_dica)
+    dicas.place(x=330, y=20)
+def congra ():
+    font_congra = ctk.CTkFont(family="Arial Black", size=38,
+    weight="bold",underline=True, overstrike=False)
+    cong = ctk.CTkLabel(janela_jogo, text="Você Acertou!" , fg_color="transparent",
+                         font=font_congra, text_color='#6BE659')
+    cong.place(x=330, y=20)
+def err ():
+    font_err = ctk.CTkFont(family="Arial Black", size=38,
+    weight="bold",underline=True, overstrike=False)
+    erro = ctk.CTkLabel(janela_jogo, text="Você Errou!" , fg_color="transparent",
+                         font=font_err, text_color='#F03425')
+    erro.place(x=330, y=20)
 # ----------------------------------
 #Iniciar Janela Principal
 # ----------------------------------
@@ -33,16 +53,16 @@ janela.geometry("1080x720")
 janela.maxsize(width= 1080, height=720)
 janela.resizable(width= False, height= False)
 font_title = ctk.CTkFont(family="Arial Black", size=44, 
-	weight="bold", slant="italic", underline=True, overstrike=False)
+	weight="bold", underline=True, overstrike=False)
 Texto = ctk.CTkLabel(janela, text="Jogo da Forca", fg_color="transparent", 
-                     font=font_title, text_color='#444444')
+                     font=font_title)
 Texto.place(x = 390, y = 70)
 logo = ctk.CTkImage(Image.open('Image\Logo.png'), size=(250, 250))
 logo = ctk.CTkLabel(janela, image=logo, text="")
-logo.place(x = 435, y = 150)
+logo.place(x = 435, y = 175)
 Iniciar = ctk.CTkButton(janela, text='Jogar', command=newjane,
                         width=250, height=50, border_width=3.5,
-                        corner_radius=60)
+                        corner_radius=60, )
 Iniciar.place(x = 410, y = 450)
 janela.mainloop()
 #----------------------------------
@@ -64,8 +84,8 @@ Parte_um = ctk.CTkLabel(janela_jogo, image=Parte_um, text="")
 Parte_um.place(x=350, y=100)
 letra = ctk.CTkEntry(janela_jogo, width=40, height=40)
 letra.place(x=347.5, y=430)
-palavra = ctk.CTkEntry(janela_jogo, width=130, height=40)
-palavra.place(x=415, y=430)
+palavras = ctk.CTkEntry(janela_jogo, width=130, height=40)
+palavras.place(x=415, y=430)
 chutar = ctk.CTkButton(janela_jogo, text='Chutar', command=chut_tj,
                         width=130, height=45, border_width=3.5,
                         corner_radius=60)
@@ -76,13 +96,21 @@ jogar_letra = ctk.CTkButton(janela_jogo, image=certinho, corner_radius=20, text=
                       hover_color='#3282F6', width=40,height=45,
                       border_width=3.5)
 jogar_letra.place(x=335, y=473)
-anotações = ctk.CTkLabel(janela_jogo, text="Anotações:", fg_color="transparent")
+font_anot = ctk.CTkFont(family="Roboto", size=20, 
+	weight="bold", underline=False, overstrike=False)
+anotações = ctk.CTkLabel(janela_jogo, text="Anotações:", fg_color="transparent",
+                         font=font_anot)
 anotações.place(x=775,y=310)
 ano_tebox = ctk.CTkTextbox(janela_jogo, width=205, height=280, fg_color='#D4D4D4')
 ano_tebox.place(x=780, y=350)
-teste1 = ctk.CTkEntry(janela_jogo, width=300, height=55, placeholder_text="Espaço para dica, e comunicação")
-teste1.place(x=330, y=20)
-teste2 = ctk.CTkEntry(janela_jogo, width=325, height=55, placeholder_text="Espaço para a Palavra")
+categoria = rnd.choice(list(categorias.keys()))
+palavra = rnd.choice(categorias[categoria])
+dica(categoria)
+
+
+teste2 = ctk.CTkEntry(janela_jogo, width=325, height=55, 
+                      placeholder_text="Espaço para a Palavra")
 teste2.place(x=330, y=360)
+
 janela_jogo.mainloop()
 #----------------------------------
