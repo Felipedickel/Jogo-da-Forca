@@ -1,0 +1,6 @@
+Estenções para baixar:
+
+pip install customtkinter
+pip install pillow
+
+OBS: Deixar a pasta da 'Image' junto com a do código.
