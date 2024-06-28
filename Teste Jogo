@@ -75,20 +75,24 @@ def jogo (x, palavra):
         elif erros == 11:
             img11 = ctk.CTkImage(Image.open('Image\Parte 11.jpg'), size=(250, 250))
             re_ima.configure(image=img11)
-    def acertar():
+    def acertar(erros):
         dicas.destroy()
         font_congra = ctk.CTkFont(family="Arial Black", size=38,
         weight="bold",underline=True, overstrike=False)
         cong = ctk.CTkLabel(janela_jogo, text="Você Acertou!" , fg_color="transparent",
                             font=font_congra, text_color='#6BE659')
         cong.place(x=330, y=20)
-    def errar():
+        if erros == 12:
+            cong.destroy()
+    def errar(erros):
         dicas.destroy() 
         font_err = ctk.CTkFont(family="Arial Black", size=38,
         weight="bold",underline=True, overstrike=False)
         erro = ctk.CTkLabel(janela_jogo, text="Você Errou!" , fg_color="transparent",
                             font=font_err, text_color='#F03425')
         erro.place(x=330, y=20)
+        if erros == 12:
+            erro.destroy()
     skip = ctk.CTkImage(Image.open('Image\skip1.png'), size=(70, 70))
     Pular = ctk.CTkButton(janela_jogo, image=skip, corner_radius=20, text=""
                           ,command=lambda: skip_jogo(dicas, pala_rel,errar,acertar ), fg_color="transparent",
@@ -152,6 +156,9 @@ def jogo (x, palavra):
         letras_acertadas.clear
         letras_erradas.clear
         letras_usadas.clear
+        erros = 12
+        acertar(erros)
+        errar(erros)
         letra_usa.configure(text= letras_usadas)
         categoria = rnd.choice(list(categorias.keys()))
         palavra = rnd.choice(categorias[categoria])
